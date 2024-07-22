@@ -23,3 +23,6 @@ matrix:
   sources:
   - '**/*.md'
   default_encoding: utf-8
+  report:
+    format: html
+    path: spell-check-report/report.html
