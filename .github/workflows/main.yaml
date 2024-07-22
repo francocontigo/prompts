@@ -31,4 +31,4 @@ jobs:
       run: |
     - name: Spell check
       run: |
-        python -m pyspelling -vvvv
+        python -m pyspelling -vv
