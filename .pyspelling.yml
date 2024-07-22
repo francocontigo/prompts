@@ -1,0 +1,14 @@
+spellchecker: aspell
+jobs: 8
+
+matrix:
+- name: txt
+  sources:
+  - *.txt
+  - */*.txt
+  - */*/*.txt
+  hunspell:
+    d: docs/src/dictionary/hunspell/pt_BR
+  aspell:
+    lang: pt
+    d: pt_BR
