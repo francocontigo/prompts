@@ -4,9 +4,9 @@ jobs: 8
 matrix:
 - name: txt
   sources:
-  - *.txt
-  - */*.txt
-  - */*/*.txt
+  - '*.txt'
+  - '*/*.txt'
+  - '*/*/*.txt'
   hunspell:
     d: docs/src/dictionary/hunspell/pt_BR
   aspell:
