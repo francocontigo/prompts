@@ -3,8 +3,6 @@ jobs: 8
 
 matrix:
 - name: txt
-  sources:
-  - '**/*.txt'
   hunspell:
     d: docs/src/dictionary/hunspell/pt_BR
   aspell:
