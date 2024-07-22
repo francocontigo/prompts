@@ -2,9 +2,21 @@ spellchecker: aspell
 jobs: 8
 
 matrix:
-- name: txt
-  hunspell:
-    d: docs/src/dictionary/hunspell/pt_BR
+- name: Markdown
   aspell:
-    lang: pt
-    d: pt_BR
+    lang: en
+  dictionary:
+    wordlists:
+    - wordlist.txt
+    output: wordlist.dic
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.markdown:
+  - pyspelling.filters.html:
+    comments: false
+    ignores:
+    - code
+    - pre
+  sources:
+  - '**/*.md'
+  default_encoding: utf-8
