@@ -4,10 +4,6 @@ matrix:
 - name: Markdown
   aspell:
     lang: pt_BR
-  dictionary:
-    wordlists:
-    - wordlist.txt
-    encoding: utf-8
   sources:
   - '**/*.md'
   default_encoding: utf-8
