@@ -3,26 +3,36 @@ name: CI
 on:
     push:
         branches:
-            -  "main"
+            - "main"
     pull_request:
         branches:
-            -  "main"
+            - "main"
 
     workflow_dispatch:
 
 jobs:
-  build:
-    name: Spellcheck
+  spelling:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: rojopolis/spellcheck-github-actions@0.40.0
-      name: Spellcheck
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v2
       with:
-        output_file: spellcheck-output.txt
-    - uses: actions/upload-artifact@v3
-      if: '!cancelled()' # Do not upload artifact if job was cancelled
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pyspelling
+    - name: Install Aspell
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y aspell aspell-pt
+    - name: Spell check
+      run: |
+        python -m pyspelling -vv
+    - name: Upload spell check report
+      if: always()
+      uses: actions/upload-artifact@v2
       with:
-        name: Spellcheck Output
-        path: spellcheck-output.txt
-
+        name: spell-check-report
+        path: spell-check-report/*
