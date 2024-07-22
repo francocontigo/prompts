@@ -3,7 +3,7 @@ spellchecker: aspell
 matrix:
 - name: Markdown
   aspell:
-    lang: pt
+    lang: pt_BR
     d: pt_BR
   sources:
   - '**/*.md'
