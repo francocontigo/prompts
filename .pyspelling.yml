@@ -6,7 +6,7 @@ matrix:
     lang: pt_BR
   dictionary:
     wordlists:
-    - .wordlist.txt
+    - wordlist.txt
     encoding: utf-8
   pipeline:
   - pyspelling.filters.markdown:
