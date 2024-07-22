@@ -3,8 +3,7 @@ spellchecker: aspell
 matrix:
 - name: Markdown
   aspell:
-    lang: pt_BR
-    d: pt_BR
+    lang: pt_B
   sources:
   - '**/*.md'
   default_encoding: utf-8
