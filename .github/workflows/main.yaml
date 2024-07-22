@@ -15,16 +15,31 @@ jobs:
     name: Spellcheck
     runs-on: ubuntu-latest
     steps:
-    # The checkout step
+    # A etapa de checkout
     - uses: actions/checkout@v4
+
+    # Instala o aspell e o dicionário de português
+    - name: Install aspell and Portuguese dictionary
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y aspell aspell-pt
+
+    # Corrige as permissões do dicionário
+    - name: Fix permissions for Portuguese dictionary
+      run: |
+        sudo chmod 644 /usr/lib/aspell/pt_BR
+
+    # A etapa de verificação ortográfica
     - uses: rojopolis/spellcheck-github-actions@0.40.0
       name: Spellcheck
       with:
         source_files: '**/*.md'
         task_name: Markdown
         output_file: spellcheck-output.txt
+
+    # A etapa de upload do resultado
     - uses: actions/upload-artifact@v3
-      if: '!cancelled()' # Do not upload artifact if job was cancelled
+      if: '!cancelled()' # Não faça upload se o trabalho for cancelado
       with:
         name: Spellcheck Output
         path: spellcheck-output.txt
