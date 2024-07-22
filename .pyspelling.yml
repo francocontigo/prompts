@@ -4,7 +4,7 @@ jobs: 8
 matrix:
 - name: Markdown
   aspell:
-    lang: pt
+    lang: pt_BR
   dictionary:
     wordlists:
     - wordlist.txt
