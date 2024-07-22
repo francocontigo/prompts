@@ -5,6 +5,11 @@ matrix:
 - name: Markdown
   aspell:
     lang: pt
+  dictionary:
+    wordlists:
+    - wordlist.txt
+    output: wordlist.dic
+    encoding: utf-8
   pipeline:
   - pyspelling.filters.markdown:
   sources:
