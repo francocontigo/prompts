@@ -1,16 +1,20 @@
 spellchecker: aspell
-jobs: 8
 
 matrix:
-- name: md
-  hunspell:
-    d: docs/src/dictionary/hunspell/pt_BR
+- name: Markdown
   aspell:
-    lang: pt
-    d: pt_BR
+    lang: pt_BR
+  dictionary:
+    wordlists:
+    - .wordlist.txt
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.markdown:
+  - pyspelling.filters.html:
+      comments: false
+      ignores:
+      - code
+      - pre
   sources:
   - '**/*.md'
   default_encoding: utf-8
-  report:
-    format: html
-    path: spell-check-report/report.html
