@@ -31,9 +31,9 @@ jobs:
         # Comandos para construir os documentos
     - name: Spell check
       run: |
-        python -m pyspelling -v | tee console_output.txt
+        python -m pyspelling -v | tee spelling_output.txt
     - name: Upload Spell Check Output
       uses: actions/upload-artifact@v4
       with:
-        name: console_output
-        path: console_output.txt
+        name: spelling_output
+        path: spelling_output.txt

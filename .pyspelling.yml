@@ -1,13 +1,13 @@
 spellchecker: aspell
 
 matrix:
-- name: Markdown
+- name: Prompts
   aspell:
     lang: pt_BR
   dictionary:
     wordlists:
-    - worldlist.txt
-    ouput: build/worldlist.dic
+    - prompt_dic.txt
+    ouput: build/prompt_dic.dic
     encoding: utf-8
   sources:
   - '**/*.md'
