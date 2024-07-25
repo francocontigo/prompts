@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v3
+    - name: Set up Python 3.12.2
+      uses: actions/setup-python@v5
       with:
         python-version: 3.12.2
     - name: Install dependencies
@@ -33,7 +33,7 @@ jobs:
       run: |
         python -m pyspelling -v | tee console_output.txt
     - name: Upload Spell Check Output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: console_output
         path: console_output.txt
