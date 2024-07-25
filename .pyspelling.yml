@@ -4,6 +4,11 @@ matrix:
 - name: Markdown
   aspell:
     lang: pt_BR
+  dictionary:
+    wordlists:
+    - worldlist.txt
+    ouput: build/worldlist.dic
+    encoding: utf-8
   sources:
   - '**/*.md'
   default_encoding: utf-8
