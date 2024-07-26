@@ -48,10 +48,6 @@ def format_errors(errors):
 
     return result
 
-def run_spell_check(filename):
-    result = subprocess.run(['aspell', 'list', '--mode=markdown', filename], capture_output=True, text=True)
-    return result.stdout
-
 def main():
     if len(sys.argv) != 2:
         print("Usage: python script.py <filename>")
@@ -65,10 +61,6 @@ def main():
     with open(output_filename, 'w') as outfile:
         for error in formatted_errors:
             outfile.write(error + '\n')
-
-    # Optional: Run spell check on the output file (if needed for debugging)
-    # spell_check_result = run_spell_check(output_filename)
-    # print(spell_check_result)
 
 if __name__ == "__main__":
     main()
