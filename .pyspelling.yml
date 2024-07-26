@@ -10,5 +10,5 @@ matrix:
     ouput: build/.prompt_dic.dic
     encoding: utf-8
   sources:
-  - '**/**/*.md'
+  - '**/*.md'
   default_encoding: utf-8
