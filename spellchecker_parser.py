@@ -26,6 +26,7 @@ def format_errors(errors):
     formatted_errors = {}
 
     for file, errs in errors.items():
+        # Split path to determine if it should be grouped under root or subfolder
         if '/' in file:
             parts = file.split('/')
             folder = parts[0]
