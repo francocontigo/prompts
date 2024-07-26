@@ -12,10 +12,9 @@ def parse_file(filename):
     for line in lines:
         if line.startswith('> Processing:'):
             current_file = line.split(': ', 1)[1].strip()
+            errors[current_file] = []  # Initialize the error list for the new file
         elif line.startswith('Misspelled words:'):
             in_error_section = True
-            if current_file not in errors:
-                errors[current_file] = []
         elif in_error_section:
             if line.strip() == '--------------------------------------------------------------------------------':
                 in_error_section = False
@@ -48,6 +47,10 @@ def format_errors(errors):
 
     return result
 
+def run_spell_check(filename):
+    result = subprocess.run(['aspell', 'list', '--mode=markdown', filename], capture_output=True, text=True)
+    return result.stdout
+
 def main():
     if len(sys.argv) != 2:
         print("Usage: python script.py <filename>")
@@ -59,8 +62,12 @@ def main():
 
     output_filename = 'errors_output.txt'
     with open(output_filename, 'w') as outfile:
-        for error in formatted_errors:
-            outfile.write(error + '\n')
+        for line in formatted_errors:
+            outfile.write(line + '\n')
+
+    # Optional: Run spell check on the output file (if needed for debugging)
+    # spell_check_result = run_spell_check(output_filename)
+    # print(spell_check_result)
 
 if __name__ == "__main__":
     main()
