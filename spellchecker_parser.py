@@ -1,4 +1,5 @@
 import sys
+import re
 
 def parse_file(filename):
     with open(filename, 'r') as file:
@@ -18,7 +19,9 @@ def parse_file(filename):
             if line.strip() == '--------------------------------------------------------------------------------':
                 in_error_section = False
             elif not line.startswith('<text>'):
-                errors[current_file].append(line.strip())
+                # Use regex to extract words between separators
+                words = re.findall(r'\b\w+\b', line)
+                errors[current_file].extend(words)
 
     return errors
 
