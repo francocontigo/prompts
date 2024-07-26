@@ -28,20 +28,17 @@ def format_errors(errors):
     formatted_errors = {}
 
     for file, errs in errors.items():
-        parts = file.split('/')
-        folder = parts[0]
-        rest_of_path = '/'.join(parts[1:])
-
-        if len(parts) == 1:
-            # Root level
+        if '/' in file:
+            parts = file.split('/')
+            folder = parts[0]
+            rest_of_path = '/'.join(parts[1:])
+            if folder not in formatted_errors:
+                formatted_errors[folder] = []
+            formatted_errors[folder].append(f'/{rest_of_path} :\n{"\n".join(errs)}')
+        else:
             if 'root' not in formatted_errors:
                 formatted_errors['root'] = []
             formatted_errors['root'].append(f'/{file} :\n{"\n".join(errs)}')
-        else:
-            # Subfolder level
-            if folder not in formatted_errors:
-                formatted_errors[folder] = []
-            formatted_errors[folder].append(f'/{"/".join(parts[1:])} :\n{"\n".join(errs)}')
 
     result = []
     for folder, entries in formatted_errors.items():
@@ -68,8 +65,9 @@ def main():
         for error in formatted_errors:
             outfile.write(error + '\n')
 
-    spell_check_result = run_spell_check(output_filename)
-    print(spell_check_result)
+    # Optional: Run spell check on the output file (if needed for debugging)
+    # spell_check_result = run_spell_check(output_filename)
+    # print(spell_check_result)
 
 if __name__ == "__main__":
     main()
