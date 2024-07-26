@@ -38,10 +38,10 @@ def format_errors(errors):
                 formatted_errors['root'] = []
             formatted_errors['root'].append(f'/{file} :\n{"\n".join(errs)}')
         else:
-            # Subfolder
+            # Subfolder level
             if folder not in formatted_errors:
                 formatted_errors[folder] = []
-            formatted_errors[folder].append(f'/{rest_of_path} :\n{"\n".join(errs)}')
+            formatted_errors[folder].append(f'/{"/".join(parts[1:])} :\n{"\n".join(errs)}')
 
     result = []
     for folder, entries in formatted_errors.items():
