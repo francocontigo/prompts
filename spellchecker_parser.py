@@ -1,5 +1,4 @@
 import sys
-import subprocess
 
 def parse_file(filename):
     with open(filename, 'r') as file:
@@ -27,7 +26,6 @@ def format_errors(errors):
     formatted_errors = {}
 
     for file, errs in errors.items():
-        # Split path to determine if it should be grouped under root or subfolder
         if '/' in file:
             parts = file.split('/')
             folder = parts[0]
@@ -47,10 +45,6 @@ def format_errors(errors):
 
     return result
 
-def run_spell_check(filename):
-    result = subprocess.run(['aspell', 'list', '--mode=markdown', filename], capture_output=True, text=True)
-    return result.stdout
-
 def main():
     if len(sys.argv) != 2:
         print("Usage: python script.py <filename>")
@@ -64,10 +58,6 @@ def main():
     with open(output_filename, 'w') as outfile:
         for line in formatted_errors:
             outfile.write(line + '\n')
-
-    # Optional: Run spell check on the output file (if needed for debugging)
-    # spell_check_result = run_spell_check(output_filename)
-    # print(spell_check_result)
 
 if __name__ == "__main__":
     main()
