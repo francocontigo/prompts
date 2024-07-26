@@ -34,9 +34,9 @@ jobs:
         python -m pyspelling -v | tee spelling_output.txt
     - name: Parsing
       run: |
-        python spellchecker_parser.py errors_output.txt
+        python spellchecker_parser.py spelling_output.txt
     - name: Upload Spell Check Output
       uses: actions/upload-artifact@v4
       with:
-        name: spelling_output
-        path: spelling_output.txt
+        name: errors_output
+        path: errors_output.txt
