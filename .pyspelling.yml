@@ -6,8 +6,8 @@ matrix:
     lang: pt_BR
   dictionary:
     wordlists:
-    - .prompt_dic.txt.txt
-    ouput: build/.prompt_dic.txt.dic
+    - .prompt_dic.txt
+    ouput: build/.prompt_dic.dic
     encoding: utf-8
   sources:
   - '**/**/*.md'
