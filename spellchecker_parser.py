@@ -28,17 +28,18 @@ def format_errors(errors):
     formatted_errors = {}
 
     for file, errs in errors.items():
+        # Split path to determine if it should be grouped under root or subfolder
         if '/' in file:
             parts = file.split('/')
             folder = parts[0]
             rest_of_path = '/'.join(parts[1:])
             if folder not in formatted_errors:
                 formatted_errors[folder] = []
-            formatted_errors[folder].append(f'/{rest_of_path} :\n{"\n".join(errs)}')
+            formatted_errors[folder].append(f'/{rest_of_path} :\n' + "\n".join(errs))
         else:
             if 'root' not in formatted_errors:
                 formatted_errors['root'] = []
-            formatted_errors['root'].append(f'/{file} :\n{"\n".join(errs)}')
+            formatted_errors['root'].append(f'/{file} :\n' + "\n".join(errs))
 
     result = []
     for folder, entries in formatted_errors.items():
