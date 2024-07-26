@@ -20,24 +20,27 @@ def parse_file(filename):
             if line.strip() == '--------------------------------------------------------------------------------':
                 in_error_section = False
             else:
+                if line.startswith('<text>'):
+                    continue
                 errors[current_file].append(line.strip())
 
     return errors
 
 def format_errors(errors):
-    formatted_errors = {}
+    formatted_errors = []
+    folder_errors = {}
 
     for file, errs in errors.items():
         parts = file.split('/')
         if len(parts) == 1:
             root = 'root'
-            formatted_errors.setdefault(root, []).append(f'/{file} :\n{"\n".join(errs)}')
+            folder_errors.setdefault(root, []).append(f'/{file} :\n{"\n".join(errs)}')
         else:
             folder = parts[0]
-            formatted_errors.setdefault(folder, []).append(f'/{"/".join(parts[1:])} :\n{"\n".join(errs)}')
+            formatted_errors.append(f"{folder}:\n{file} :\n{'\n'.join(errs)}")
 
     result = []
-    for folder, files in formatted_errors.items():
+    for folder, files in folder_errors.items():
         result.append(f"{folder}:")
         result.extend(files)
 
