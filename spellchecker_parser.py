@@ -25,19 +25,23 @@ def parse_file(filename):
     return errors
 
 def format_errors(errors):
-    formatted_errors = []
+    formatted_errors = {}
 
     for file, errs in errors.items():
-        if '/' not in file:
-            formatted_errors.append(f"root:\n{file} : {' '.join(errs)}")
+        parts = file.split('/')
+        if len(parts) == 1:
+            root = 'root'
+            formatted_errors.setdefault(root, []).append(f'/{file} :\n{"\n".join(errs)}')
         else:
-            parts = file.split('/')
-            if len(parts) == 2:
-                formatted_errors.append(f"root:\n{file} : {' '.join(errs)}")
-            else:
-                formatted_errors.append(f"pasta:\n{file} : {' '.join(errs)}")
+            folder = parts[0]
+            formatted_errors.setdefault(folder, []).append(f'/{"/".join(parts[1:])} :\n{"\n".join(errs)}')
 
-    return formatted_errors
+    result = []
+    for folder, files in formatted_errors.items():
+        result.append(f"{folder}:")
+        result.extend(files)
+
+    return result
 
 def run_spell_check(filename):
     result = subprocess.run(['aspell', 'list', '--mode=markdown', filename], capture_output=True, text=True)
