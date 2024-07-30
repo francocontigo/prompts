@@ -29,14 +29,14 @@ jobs:
     - name: Build documents
       run: |
         # Comandos para construir os documentos
+    - name: Get Diff
+      run: |
+        git diff --name-only branchname main | tee diff.txt
     - name: Spell check
       run: |
-        python -m pyspelling -v | tee spelling_output.txt
-    - name: Parsing
-      run: |
-        python spellchecker_parser.py spelling_output.txt
+        awk '{printf "-S \"%s\" ", $0}' diff.txt | xargs python -m pyspelling -n my_task -v | tee spelling_output.txt
     - name: Upload Spell Check Output
       uses: actions/upload-artifact@v4
       with:
-        name: errors_output
-        path: errors_output.txt
+        name: spelling_output
+        path: spelling_output.txt
