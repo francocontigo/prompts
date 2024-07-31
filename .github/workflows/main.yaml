@@ -31,7 +31,7 @@ jobs:
         sudo apt-get install gawk
     - name: Get Diff
       run: |
-        git diff --name-only head HEAD^ | tee diff.txt
+        git diff --name-only HEAD HEAD^ | tee diff.txt
     - name: Spell check
       run: |
         awk '{printf "-S \"%s\" ", $0}' diff.txt | xargs -I {} sh -c 'python -m pyspelling -v {}' | tee spelling_output.txt
